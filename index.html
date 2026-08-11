@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --surface:#ffffff; --ink:#1a1d23; --muted:#5b6270;
+    --border:#e2e5ea; --accent:#2563a8; --accent-soft:#e8f0fa;
+    --c-time:#2563a8; --c-mile:#1e8a6e; --c-rota:#a8543a;
+    --shadow:0 1px 2px rgba(20,25,35,.06),0 4px 16px rgba(20,25,35,.05);
+  }
+  html[data-theme="dark"]{
+    --bg:#0f1419; --surface:#1a2028; --ink:#e8ebef; --muted:#9aa4b2;
+    --border:#2a323d; --accent:#4f9cf0; --accent-soft:#1c2a3a;
+    --c-time:#4f9cf0; --c-mile:#3fbf99; --c-rota:#d98363;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:40px 24px 64px}
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px}
+  .eyebrow{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  }
+  h1{font-size:30px;font-weight:700;letter-spacing:-.01em;margin-top:4px}
+  .sub{color:var(--muted);font-size:14px;margin-top:6px}
+  .toggle{
+    flex:none;background:var(--surface);border:1px solid var(--border);color:var(--muted);
+    border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;
+    display:inline-flex;align-items:center;gap:7px;transition:border-color .15s,color .15s;
+  }
+  .toggle:hover{border-color:var(--accent);color:var(--ink)}
+  .toggle svg{width:15px;height:15px}
+  .grid{margin-top:28px;display:grid;grid-template-columns:1fr;gap:14px}
+  .card{
+    position:relative;display:flex;align-items:center;gap:18px;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:20px 22px 20px 26px;text-decoration:none;color:inherit;
+    box-shadow:var(--shadow);overflow:hidden;
+    transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--bar)}
+  .card:hover{transform:translateY(-2px);border-color:var(--bar)}
+  .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .icon{
+    flex:none;width:46px;height:46px;border-radius:11px;display:grid;place-items:center;
+    background:var(--accent-soft);color:var(--bar);
+  }
+  .icon svg{width:24px;height:24px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .body{flex:1;min-width:0}
+  .tag{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bar);font-weight:600;
+  }
+  .name{font-size:17px;font-weight:650;margin-top:2px}
+  .desc{color:var(--muted);font-size:13.5px;margin-top:3px}
+  .chev{flex:none;color:var(--muted);transition:transform .16s,color .16s}
+  .card:hover .chev{transform:translateX(3px);color:var(--bar)}
+  .chev svg{width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .todo{opacity:.72}
+  .todo .tag::after{content:" · set link";color:var(--muted);font-weight:400}
+  footer{margin-top:40px;color:var(--muted);font-size:12px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.04em}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Workspace</div>
+      <h1>Tools</h1>
+      <div class="sub">Scheduling and admin toolkit</div>
+    </div>
+    <button class="toggle" id="themeBtn" aria-label="Toggle theme">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></svg>
+      <span id="themeLabel">Dark</span>
+    </button>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* ---- Edit tool links here. Confirm the two marked "TODO". ---- */
+const TOOLS = [
+  {
+    key:"time", tag:"Timesheet", name:"Timesheet & Code Calculator",
+    desc:"Weekly timesheets, working windows and code allocation.",
+    url:"https://alpycens.github.io/timesheet-calculator/",
+    color:"var(--c-time)",
+    icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+  },
+  {
+    key:"mile", tag:"Mileage", name:"Travel Mileage Calculator",
+    desc:"Excess-mileage travel claims for plant visits.",
+    url:"https://alpycens.github.io/mileagecalculator/",
+    color:"var(--c-mile)",
+    icon:'<path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/>'
+  },
+  {
+    key:"rota", tag:"Rota", name:"Rota Tracker",
+    desc:"Pivot weekly schedules into a plant view with drag-and-drop.",
+    url:"", /* TODO: e.g. https://alpycens.github.io/rota-tracker/ */
+    color:"var(--c-rota)",
+    icon:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M9 4v17M15 4v17"/>'
+  }
+];
+
+const chev = '<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.innerHTML = TOOLS.map(t=>{
+    const live = t.url && t.url.trim().length;
+    const el = live ? "a" : "div";
+    const href = live ? ` href="${t.url}"` : "";
+    return `<${el} class="card ${live?"":"todo"}"${href} style="--bar:${t.color}"${live?"":' aria-disabled="true"'}>
+      <span class="icon"><svg viewBox="0 0 24 24">${t.icon}</svg></span>
+      <span class="body">
+        <span class="tag">${t.tag}</span>
+        <div class="name">${t.name}</div>
+        <div class="desc">${t.desc}</div>
+      </span>
+      <span class="chev">${chev}</span>
+    </${el}>`;
+  }).join("");
+  document.getElementById("foot").textContent =
+    TOOLS.length + " tools \u00b7 last updated " + new Date().toLocaleDateString("en-GB");
+}
+
+/* ---- Theme ---- */
+const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+const MOON='<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+function applyTheme(mode){
+  document.documentElement.setAttribute("data-theme",mode);
+  document.getElementById("themeIcon").innerHTML = mode==="dark"?SUN:MOON;
+  document.getElementById("themeLabel").textContent = mode==="dark"?"Light":"Dark";
+  try{localStorage.setItem("hub_theme",mode);}catch(e){}
+}
+let saved="light";
+try{saved=localStorage.getItem("hub_theme")||"light";}catch(e){}
+applyTheme(saved);
+document.getElementById("themeBtn").addEventListener("click",()=>{
+  applyTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+});
+
+render();
+</script>
+</body>
+</html>
