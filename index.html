@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tools</title>
+<title>Intranet</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="theme-color" content="#2563a8">
 <style>
@@ -78,9 +78,7 @@
 <div class="wrap">
   <header>
     <div>
-      <div class="eyebrow">Workspace</div>
-      <h1>Tools</h1>
-      <div class="sub">Scheduling and admin toolkit</div>
+      <h1>Intranet</h1>
     </div>
     <button class="toggle" id="themeBtn" aria-label="Toggle theme">
       <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></svg>
@@ -89,8 +87,6 @@
   </header>
 
   <div class="grid" id="grid"></div>
-
-  <footer id="foot"></footer>
 </div>
 
 <script>
@@ -137,8 +133,6 @@ function render(){
       <span class="chev">${chev}</span>
     </${el}>`;
   }).join("");
-  document.getElementById("foot").textContent =
-    TOOLS.length + " tools \u00b7 last updated " + new Date().toLocaleDateString("en-GB");
 }
 
 /* ---- Theme ---- */
