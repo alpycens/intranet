@@ -10,13 +10,13 @@
   :root{
     --bg:#f4f6f8; --surface:#ffffff; --ink:#1a1d23; --muted:#5b6270;
     --border:#e2e5ea; --accent:#2563a8; --accent-soft:#e8f0fa;
-    --c-time:#2563a8; --c-mile:#1e8a6e; --c-rota:#a8543a;
+    --c-time:#2563a8; --c-mile:#1e8a6e; --c-rota:#a8543a; --c-cd:#1c86b8;
     --shadow:0 1px 2px rgba(20,25,35,.06),0 4px 16px rgba(20,25,35,.05);
   }
   html[data-theme="dark"]{
     --bg:#0f1419; --surface:#1a2028; --ink:#e8ebef; --muted:#9aa4b2;
     --border:#2a323d; --accent:#4f9cf0; --accent-soft:#1c2a3a;
-    --c-time:#4f9cf0; --c-mile:#3fbf99; --c-rota:#d98363;
+    --c-time:#4f9cf0; --c-mile:#3fbf99; --c-rota:#d98363; --c-cd:#4fb8e0;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -112,6 +112,13 @@ const TOOLS = [
     url:"https://alpycens.github.io/rotatracker/",
     color:"var(--c-rota)",
     icon:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M9 4v17M15 4v17"/>'
+  },
+  {
+    key:"cd", tag:"Clean & Disinfect", name:"CD Tracker",
+    desc:"Log clean & disinfect codes per plant, shared with everyone.",
+    url:"https://alpycens.github.io/cdtracker/",
+    color:"var(--c-cd)",
+    icon:'<path d="M12 3s6 6.5 6 10.6A6 6 0 0 1 6 13.6C6 9.5 12 3 12 3z"/><path d="M9.6 14.4a2.4 2.4 0 0 0 2.4 2.2"/>'
   }
 ];
 
